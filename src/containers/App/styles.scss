@@ -8,19 +8,20 @@
     background-color: aqua;
     form {
         margin: 40px auto;
-        padding-left: 30px;
-        padding-right: 30px;
     }
 }
 
 .rooms {
     background-color: azure;
-    padding: 5px;
-    .header {
-        background-color: cadetblue;
-    }
-}
+    padding-left: 0;
+    padding-right: 0;
 
+}
+.header {
+    background-color: cadetblue;
+}
 .peoples {
-    background-color: bisque;
+    background-color: azure;
+    padding-left: 0;
+    padding-right: 0;
 }

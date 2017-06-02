@@ -10,7 +10,7 @@ const PeopleList = ({roomId, children, state}) => {
                 <div className='text-center'>
                     <h3>{title}</h3>
                 </div>
-                {null === roomId ?
+                {null !== roomId ?
                     <form className='form-inline'>
                         <div className='form-group'>
                             <input className='form-control' type='text' placeholder='user name'/>
