@@ -1,29 +1,29 @@
 const initialState = {
-    rooms: [
+    items: [
         {
             id: 0,
             firstName: 'Вася',
-            lastName: 'Пупкин',
+            lastName: 'Пупкин'
         },
         {
             id: 1,
             firstName: 'Сергей',
-            lastName: 'Петров',
+            lastName: 'Петров'
         },
         {
             id: 2,
             firstName: 'Роман',
-            lastName: 'Викторов',
+            lastName: 'Викторов'
         },
         {
             id: 3,
             firstName: 'Лера',
-            lastName: 'Минкина',
+            lastName: 'Минкина'
         },
         {
             id: 4,
             firstName: 'Женя',
-            lastName: 'Одинцова',
+            lastName: 'Одинцова'
         }
     ],
     fetching: false

@@ -1,9 +1,9 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-const PeopleList = ({roomId, children, state}) => {
+const PeopleList = ({roomId, children}) => {
 
-    let title = (null === roomId) ? 'No room selected' : state.rooms[0].name;
+    let title = (null === roomId) ? 'No room selected' : 'www';
     return (
         <div>
             <div className='header'>
@@ -26,7 +26,7 @@ const PeopleList = ({roomId, children, state}) => {
 
 PeopleList.propTypes = {
     children: PropTypes.node,
-    title: PropTypes.string.isRequired
+    roomId: PropTypes.number.isRequired
 }
 
 export default PeopleList

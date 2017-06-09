@@ -3,7 +3,7 @@ import {
     LOGIN_FAIL,
     LOGIN_SUCCESS,
     LOGOUT_SUCCESS
-} from './../constants/User'
+} from './../constants/ActionTypes'
 
 const initialState = {
     name: 'Vasi'
