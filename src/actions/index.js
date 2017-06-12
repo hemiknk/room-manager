@@ -1,4 +1,4 @@
-import {ADD_ROOM, FILTER_BY_ROOM_NAME} from '../constants/ActionTypes';
+import {ADD_ROOM, FILTER_BY_ROOM_NAME, SORT_BY_ROOM_NAME} from '../constants/ActionTypes';
 
 let rootId = 5;
 export function addRoom(name) {
@@ -14,6 +14,10 @@ export function addRoom(name) {
                     userIds: []
                 }
             }
+        });
+        dispatch({
+            type: SORT_BY_ROOM_NAME,
+            payload: {}
         });
     }
 }

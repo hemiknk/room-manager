@@ -5,7 +5,9 @@ export default class RoomItem extends Component {
     render() {
         return (
             <div>
-                <p>Назваине: {this.props.name} Описание: {this.props.description}</p><a href='#'>Подробне</a>
+                <p>Назваине: {this.props.name}</p>
+                <p><span className='badge'>{this.props.countPeople}</span>Описание: {this.props.description}</p>
+                <a href='#'>Подробне</a>
                 <hr/>
             </div>
         )
@@ -14,5 +16,6 @@ export default class RoomItem extends Component {
 
 RoomItem.propTypes = {
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired
+    description: PropTypes.string.isRequired,
+    countPeople: PropTypes.number.isRequired
 }

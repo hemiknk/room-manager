@@ -37,7 +37,8 @@ class Rooms extends Component {
                                     <RoomItem
                                         key={room.id}
                                         name={room.name}
-                                        description={room.description}/>
+                                        description={room.description}
+                                        countPeople={room.userIds.length}/>
                                 </li>
                             })
                             }

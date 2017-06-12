@@ -4,3 +4,4 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const ADD_ROOM = 'ADD_ROOM';
 export const FILTER_BY_ROOM_NAME = 'FILTER_BY_ROOM_NAME';
+export const SORT_BY_ROOM_NAME = 'SORT_BY_ROOM_NAME';
