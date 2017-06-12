@@ -1,4 +1,4 @@
-import {ADD_ROOM, FILTER_BY_ROOM_NAME, SORT_BY_ROOM_NAME} from '../constants/ActionTypes';
+import {ADD_ROOM, FILTER_BY_ROOM_NAME, ON_ROOM_SELECTED, SORT_BY_ROOM_NAME} from '../constants/ActionTypes';
 
 let rootId = 5;
 export function addRoom(name) {
@@ -36,3 +36,13 @@ export function filterByRoomName(name){
     }
 }
 
+export function onRoomClick(id){
+    return (dispatch) => {
+        dispatch({
+            type: ON_ROOM_SELECTED,
+            payload: {
+                roomId: id
+            }
+        })
+    }
+}

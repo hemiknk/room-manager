@@ -3,14 +3,14 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import RoomItem from '../../components/RoomItem'
 import RoomsList from '../../components/RoomsList'
-import { addRoom, filterByRoomName } from '../../actions'
+import {addRoom, filterByRoomName, onRoomClick} from '../../actions'
 import PeopleList from '../../components/PeopleList'
 import PeopleItem from '../../components/PeopleItem';
 import {bindActionCreators} from 'redux'
 
 class Rooms extends Component {
     render() {
-        const {rooms, users, addRoom, filterByRoomName} = this.props;
+        const {rooms, users, addRoom, filterByRoomName, onRoomClick} = this.props;
         let roomKeys = Object.keys(rooms.items);
         let userKeys = Object.keys(users.items);
 
@@ -19,7 +19,7 @@ class Rooms extends Component {
                 <div className='col-md-4 peoples'>
                     <PeopleList roomId={rooms.roomId}>
                         <ul>
-                            {
+                            {null !== rooms.roomId ?
                                 userKeys.map(key => {
                                         let user = users.items[key];
                                         return <li><PeopleItem
@@ -27,7 +27,8 @@ class Rooms extends Component {
                                             firstName={user.firstName}
                                             lastName={user.lastName}/></li>
                                     }
-                                )}
+                                ) : ''
+                            }
                         </ul>
                     </PeopleList>
                 </div>
@@ -39,9 +40,11 @@ class Rooms extends Component {
                                 return <li>
                                     <RoomItem
                                         key={room.id}
+                                        dataId={room.id}
                                         name={room.name}
                                         description={room.description}
-                                        countPeople={room.userIds.length}/>
+                                        countPeople={room.userIds.length}
+                                        onRoomClick={() => onRoomClick(room.id)}/>
                                 </li>
                             })
                             }
@@ -67,13 +70,7 @@ class Rooms extends Component {
 
 
 function filterRoomByName(roomState) {
-    if ('' === roomState.filterRoom) {
-        return roomState.items;
-    }
-
-    let filterByName2 = filterByName(roomState.items, roomState.filterRoom);
-
-    return filterByName2
+    return ('' === roomState.filterRoom) ? roomState.items : filterByName(roomState.items, roomState.filterRoom);
 }
 
 function filterByName(items, value) {
@@ -96,15 +93,33 @@ function getObjectToArray(object) {
     });
 }
 
+function getUsers(state) {
+    if (null === state.rooms.roomId) {
+        return {};
+    }
+    let users = {};
+    Object.keys(state.users.items).map(function (key) {
+        let roomId = state.rooms.roomId;
+        let room = state.rooms.items[roomId];
+        if (-1 !== room.userIds.indexOf(Number(key))) {
+            users.key = state.users.items[key]
+
+        }
+    });
+    // debugger
+    return users;
+}
+
 const mapStateToProps = (state) => ({
     rooms: {...state.rooms, items: filterRoomByName(state.rooms)},
-    users: state.users
+    users: {...state.users, items: getUsers(state)}
 });
 
 function mapDispatchToProps(dispatch) {
     return {
         addRoom: bindActionCreators(addRoom, dispatch),
-        filterByRoomName: bindActionCreators(filterByRoomName, dispatch)
+        filterByRoomName: bindActionCreators(filterByRoomName, dispatch),
+        onRoomClick: bindActionCreators(onRoomClick, dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Rooms)
