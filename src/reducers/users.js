@@ -1,31 +1,31 @@
 const initialState = {
-    items: [
-        {
-            id: 0,
+    items: {
+        10: {
+            id: 10,
             firstName: 'Вася',
             lastName: 'Пупкин'
         },
-        {
+        1: {
             id: 1,
             firstName: 'Сергей',
             lastName: 'Петров'
         },
-        {
+        2: {
             id: 2,
             firstName: 'Роман',
             lastName: 'Викторов'
         },
-        {
-            id: 3,
+        5: {
+            id: 5,
             firstName: 'Лера',
             lastName: 'Минкина'
         },
-        {
+        4: {
             id: 4,
             firstName: 'Женя',
             lastName: 'Одинцова'
         }
-    ],
+    },
     fetching: false
 };
 

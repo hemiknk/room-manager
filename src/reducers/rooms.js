@@ -1,5 +1,4 @@
 import {ADD_ROOM, FILTER_BY_ROOM_NAME, SORT_BY_ROOM_NAME} from '../constants/ActionTypes';
-// import sortObj from 'sort-object';
 import sortBy from 'sort-by';
 
 const initialState = {
@@ -26,6 +25,7 @@ const initialState = {
     roomId: 2,
     year: 2016,
     photos: [],
+    filterRoom: '',
     fetching: false
 };
 
@@ -34,9 +34,9 @@ export default function rooms(state = initialState, action) {
 
     switch (action.type) {
         case ADD_ROOM:
-            return { ...state, items: addRoomToItems(state, action) };
+            return { ...state, items: addRoomToItems(state, action), filterRoom: action.payload.filterRoom };
         case FILTER_BY_ROOM_NAME:
-            return { ...state, items: action.payload };
+            return { ...state,  filterRoom: action.payload.name };
         case SORT_BY_ROOM_NAME:
         default:
             items = sortRoomsByName(items);
@@ -46,13 +46,19 @@ export default function rooms(state = initialState, action) {
 
 function addRoomToItems(state, action) {
     let items = state.items;
-    return Object.assign({}, items, action.payload);
-
+    return Object.assign({}, items, action.payload.room);
 }
 
 function sortRoomsByName(items) {
-    let arrayItems = Object.keys(items).map(function (value) {
-        return items[value];
-    });
+    let arrayItems = getObjectToArray(items);
     return arrayItems.sort(sortBy('name'));
+}
+
+/**
+ * @returns Array
+ */
+function getObjectToArray(object) {
+    return Object.keys(object).map(function (value) {
+        return object[value];
+    });
 }

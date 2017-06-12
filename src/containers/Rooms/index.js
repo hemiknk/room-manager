@@ -12,13 +12,16 @@ class Rooms extends Component {
     render() {
         const {rooms, users, addRoom, filterByRoomName} = this.props;
         let roomKeys = Object.keys(rooms.items);
+        let userKeys = Object.keys(users.items);
+
         return (
             <div className='row'>
                 <div className='col-md-4 peoples'>
                     <PeopleList roomId={rooms.roomId}>
                         <ul>
                             {
-                                users.items.map(user => {
+                                userKeys.map(key => {
+                                        let user = users.items[key];
                                         return <li><PeopleItem
                                             key={user.id}
                                             firstName={user.firstName}
@@ -62,8 +65,39 @@ class Rooms extends Component {
  };
  */
 
+
+function filterRoomByName(roomState) {
+    if ('' === roomState.filterRoom) {
+        return roomState.items;
+    }
+
+    let filterByName2 = filterByName(roomState.items, roomState.filterRoom);
+
+    return filterByName2
+}
+
+function filterByName(items, value) {
+    let arrayItems = getObjectToArray(items);
+    let result = [];
+    arrayItems.map(function (object) {
+        if (object.name.indexOf(value) !== -1) {
+            result.push(object);
+        }
+    });
+    return result;
+}
+
+/**
+ * @returns Array
+ */
+function getObjectToArray(object) {
+    return Object.keys(object).map(function (value) {
+        return object[value];
+    });
+}
+
 const mapStateToProps = (state) => ({
-    rooms: state.rooms,
+    rooms: {...state.rooms, items: filterRoomByName(state.rooms)},
     users: state.users
 });
 
