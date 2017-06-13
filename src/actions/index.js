@@ -1,5 +1,6 @@
 import {
-    ADD_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, ON_USER_NAME_CHANGED, SORT_BY_ROOM_NAME
+    ADD_ROOM, DELETE_USER_FROM_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, ON_USER_NAME_CHANGED,
+    SORT_BY_ROOM_NAME
 } from '../constants/ActionTypes';
 
 let rootId = 7;
@@ -56,6 +57,18 @@ export function onNameChanged(userName, id) {
             payload: {
                 id,
                 firstName: userName
+            }
+        })
+    }
+}
+
+export function deleteUserFromRoom(userId, roomId) {
+    return (dispatch) => {
+        dispatch({
+            type: DELETE_USER_FROM_ROOM,
+            payload: {
+                userId,
+                roomId
             }
         })
     }

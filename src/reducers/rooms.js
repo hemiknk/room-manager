@@ -2,7 +2,7 @@
  * @returns Array
  */
 import {
-    ADD_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, SORT_BY_ROOM_NAME
+    ADD_ROOM, DELETE_USER_FROM_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, SORT_BY_ROOM_NAME
 } from '../constants/ActionTypes';
 import sortBy from 'sort-by';
 
@@ -42,11 +42,10 @@ export default function rooms(state = initialState, action) {
             return { ...state,  filterRoom: action.payload.name };
         case ON_ROOM_SELECTED:
             return { ...state, roomId: action.payload.roomId };
-        case ON_ADD_USER_TO_ROOM: {
-            let items2 = addUserToRoom(state, action.payload);
-            return {...state, items: items2};
-        }
-
+        case ON_ADD_USER_TO_ROOM:
+            return {...state, items: addUserToRoom(state, action.payload)};
+        case DELETE_USER_FROM_ROOM:
+            return {...state, items: deleteUserFromRoom(state, action.payload)};
         case SORT_BY_ROOM_NAME:
         default:
             items = sortRoomsByName(items);
@@ -57,6 +56,15 @@ export default function rooms(state = initialState, action) {
 function addUserToRoom(state, payload){
     let roomItem = state.items[state.roomId];
     roomItem.userIds.push(payload.id);
+    return Object.assign({}, state.items, {[state.roomId]: roomItem});
+}
+
+function deleteUserFromRoom(state, payload) {
+    let roomItem = state.items[state.roomId];
+    let index = roomItem.userIds.indexOf(payload.userId);
+    if (index > -1) {
+        roomItem.userIds.splice(index, 1);
+    }
     return Object.assign({}, state.items, {[state.roomId]: roomItem});
 }
 

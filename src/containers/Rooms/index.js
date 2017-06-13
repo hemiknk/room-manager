@@ -3,14 +3,16 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import RoomItem from '../../components/RoomItem'
 import RoomsList from '../../components/RoomsList'
-import {addRoom, filterByRoomName, onRoomClick, addUserToRoom, onNameChanged} from '../../actions'
+import {addRoom, filterByRoomName, onRoomClick, addUserToRoom, onNameChanged, deleteUserFromRoom} from '../../actions'
 import PeopleList from '../../components/PeopleList'
 import PeopleItem from '../../components/PeopleItem';
 import {bindActionCreators} from 'redux'
 
 class Rooms extends Component {
     render() {
-        const {rooms, users, addRoom, filterByRoomName, onRoomClick, addUserToRoomClick, onNameChanged} = this.props;
+        const {rooms, users, addRoom, filterByRoomName, onRoomClick, addUserToRoomClick, onNameChanged,
+            deleteUserFromRoom } = this.props;
+
         let roomKeys = Object.keys(rooms.items);
         let userKeys = Object.keys(users.items);
         let roomExistInAfterFilter = typeof rooms.items[rooms.roomId] === 'object';
@@ -33,7 +35,8 @@ class Rooms extends Component {
                                             userId={user.id}
                                             firstName={user.firstName}
                                             lastName={user.lastName}
-                                            onNameChanged={onNameChanged}/></li>
+                                            onNameChanged={onNameChanged}
+                                            deleteUserFromRoom={() => deleteUserFromRoom(user.id, rooms.roomId)}/></li>
                                     }
                                 ) : ''
                             }
@@ -128,7 +131,8 @@ function mapDispatchToProps(dispatch) {
         filterByRoomName: bindActionCreators(filterByRoomName, dispatch),
         onRoomClick: bindActionCreators(onRoomClick, dispatch),
         addUserToRoomClick: bindActionCreators(addUserToRoom, dispatch),
-        onNameChanged: bindActionCreators(onNameChanged, dispatch)
+        onNameChanged: bindActionCreators(onNameChanged, dispatch),
+        deleteUserFromRoom: bindActionCreators(deleteUserFromRoom, dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Rooms)

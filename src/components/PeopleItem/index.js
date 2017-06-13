@@ -25,7 +25,7 @@ export default class PeopleItem extends Component {
                         change={::this.dataChanged}
                         style={{
                             minWidth: 120,
-                            maxWidth:120,
+                            maxWidth: 120,
                             display: 'inline-block',
                             margin: 0,
                             padding: 0,
@@ -34,7 +34,10 @@ export default class PeopleItem extends Component {
                             border: 0
                         }}
                     />
-                    {this.props.lastName}</p>
+                    {this.props.lastName} <span
+                        className='glyphicon glyphicon-remove-sign'
+                        onClick={this.props.deleteUserFromRoom}/>
+                </p>
                 <hr/>
             </div>
         )
@@ -45,6 +48,7 @@ PeopleItem.propTypes = {
     firstName: PropTypes.string.isRequired,
     lastName: PropTypes.string.isRequired,
     onNameChanged: PropTypes.func.isRequired,
+    deleteUserFromRoom: PropTypes.func.isRequired,
     userId: PropTypes.number.isRequired
 };
 
