@@ -15,7 +15,7 @@ export default class PeopleItem extends Component {
 
     render() {
         return (
-            <div>
+            <li>
                 <p><span className='label label-success'>Имя:</span>
                     <InlineEdit
                         validate={this.customValidateText}
@@ -37,7 +37,7 @@ export default class PeopleItem extends Component {
                     {this.props.lastName} ( {this.props.room} )<span className='glyphicon glyphicon-remove-sign' onClick={this.props.deleteUserFromRoom}/>
                 </p>
                 <hr/>
-            </div>
+            </li>
         )
     }
 }

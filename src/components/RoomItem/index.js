@@ -6,7 +6,7 @@ import {Link} from 'react-router'
 export default class RoomItem extends Component {
     render() {
         return (
-            <div onClick={this.props.onRoomClick}>
+            <li onClick={this.props.onRoomClick}>
                 <p><span className='label label-success'>Назваине:</span> {this.props.name}
                     {'   '}<span className='badge'>{this.props.countPeople}</span>{'   '}
                     <Link to={'/details/' + this.props.dataId} activeClassName='active'>
@@ -16,7 +16,7 @@ export default class RoomItem extends Component {
                 <p ><span className='label label-info'>Описание:</span> {this.props.description}</p>
 
                 <hr/>
-            </div>
+            </li>
         )
     }
 }

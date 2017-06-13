@@ -8,7 +8,7 @@ const initialState = {
             room: 2
         },
         1: {
-            id: 2,
+            id: 1,
             firstName: 'Сергей',
             lastName: 'Петров',
             room: 4

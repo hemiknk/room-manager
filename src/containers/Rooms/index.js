@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-// import PropTypes from 'prop-types'
+import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import RoomItem from '../../components/RoomItem'
 import RoomsList from '../../components/RoomsList'
@@ -9,17 +9,17 @@ import PeopleItem from '../../components/PeopleItem';
 import {bindActionCreators} from 'redux'
 
 class Rooms extends Component {
-    render() {
-        const {rooms, users, addRoom, filterByRoomName, onRoomClick, addUserToRoomClick, onNameChanged,
-            deleteUserFromRoom } = this.props;
 
-        let roomKeys = Object.keys(rooms.items);
-        let userKeys = Object.keys(users.items);
+    render() {
+        const {
+            rooms, users, addRoom, filterByRoomName, onRoomClick, addUserToRoomClick, onNameChanged,
+            deleteUserFromRoom
+        } = this.props;
+
         let roomExistInAfterFilter = typeof rooms.items[rooms.roomId] === 'object';
-        let title = roomExistInAfterFilter ? rooms.items[rooms.roomId].name :'No room selected';
+        let title = roomExistInAfterFilter ? rooms.items[rooms.roomId].name : 'No room selected';
 
         return (
-
             <div className='row'>
                 <div className='col-md-4 peoples'>
                     <PeopleList
@@ -28,39 +28,34 @@ class Rooms extends Component {
                         roomExistInAfterFilter={roomExistInAfterFilter}
                         roomId={rooms.roomId}>
                         <ol>
-                            {roomExistInAfterFilter ?
-                                userKeys.map(key => {
-                                        let user = users.items[key];
-                                        return <li><PeopleItem
-                                            key={user.id}
-                                            userId={user.id}
-                                            firstName={user.firstName}
-                                            lastName={user.lastName}
-                                            room={user.room}
-                                            onNameChanged={onNameChanged}
-                                            deleteUserFromRoom={() => deleteUserFromRoom(user.id, rooms.roomId)}/></li>
-                                    }
-                                ) : ''
-                            }
+                            {Object.keys(users.items).map((key) => {
+                                    let user = users.items[key];
+                                    return <PeopleItem
+                                        key={user.id}
+                                        userId={user.id}
+                                        firstName={user.firstName}
+                                        lastName={user.lastName}
+                                        room={user.room}
+                                        onNameChanged={onNameChanged}
+                                        deleteUserFromRoom={() => deleteUserFromRoom(user.id, user.room)}/>
+                                }
+                            )}
                         </ol>
                     </PeopleList>
                 </div>
                 <div className='col-md-4 rooms'>
                     <RoomsList title='Rooms' onAddRoomClicked={addRoom} filterByRoomName={filterByRoomName}>
                         <ul>
-                            {roomKeys.map(key => {
+                            {Object.keys(rooms.items).map(key => {
                                 let room = rooms.items[key];
-                                return <li>
-                                    <RoomItem
-                                        key={room.id}
-                                        dataId={room.id}
-                                        name={room.name}
-                                        description={room.description}
-                                        countPeople={room.userIds.length}
-                                        onRoomClick={() => onRoomClick(room.id)}/>
-                                </li>
-                            })
-                            }
+                                return <RoomItem
+                                    key={room.id}
+                                    dataId={room.id}
+                                    name={room.name}
+                                    description={room.description}
+                                    countPeople={room.userIds.length}
+                                    onRoomClick={() => onRoomClick(room.id)}/>
+                            })}
                         </ul>
                     </RoomsList>
                 </div>
@@ -69,17 +64,16 @@ class Rooms extends Component {
     }
 }
 
-/*
- Rooms.propTypes = {
- products: PropTypes.arrayOf(PropTypes.shape({
- id: PropTypes.number.isRequired,
- title: PropTypes.string.isRequired,
- price: PropTypes.number.isRequired,
- inventory: PropTypes.number.isRequired
- })).isRequired,
- addToCart: PropTypes.func.isRequired
- };
- */
+Rooms.propTypes = {
+    rooms: PropTypes.object.isRequired,
+    users: PropTypes.object.isRequired,
+    addRoom: PropTypes.func.isRequired,
+    filterByRoomName: PropTypes.func.isRequired,
+    onRoomClick: PropTypes.func.isRequired,
+    addUserToRoomClick: PropTypes.func.isRequired,
+    onNameChanged: PropTypes.func.isRequired,
+    deleteUserFromRoom: PropTypes.func.isRequired
+};
 
 
 function filterRoomByName(roomState) {
@@ -107,10 +101,13 @@ function getObjectToArray(object) {
 }
 
 function getUsers(state) {
-    if (null === state.rooms.roomId) {
-        return {};
-    }
     let users = {};
+    if (null === state.rooms.roomId) {
+        Object.keys(state.users.items).map(function (key) {
+            users[key] = state.users.items[key]
+        });
+        return users;
+    }
     let roomId = state.rooms.roomId;
     let userIds = state.rooms.items[roomId].userIds;
 

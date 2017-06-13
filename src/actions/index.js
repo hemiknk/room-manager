@@ -74,7 +74,6 @@ export function deleteUserFromRoom(userId, roomId) {
     }
 }
 
-
 export function addUserToRoom(userName, roomId) {
     return (dispatch) => {
         let id = rootId++;
@@ -85,7 +84,7 @@ export function addUserToRoom(userName, roomId) {
                     [id]: {
                         id: id,
                         firstName: userName,
-                        lastName: '----',
+                        lastName: '',
                         room: roomId
                     }
                 },
