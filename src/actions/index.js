@@ -75,18 +75,18 @@ export function deleteUserFromRoom(userId, roomId) {
 }
 
 
-export function addUserToRoom(userName) {
+export function addUserToRoom(userName, roomId) {
     return (dispatch) => {
         let id = rootId++;
         dispatch({
-
             type: ON_ADD_USER_TO_ROOM,
             payload: {
                 user: {
                     [id]: {
                         id: id,
                         firstName: userName,
-                        lastName: '----'
+                        lastName: '----',
+                        room: roomId
                     }
                 },
                 id: id

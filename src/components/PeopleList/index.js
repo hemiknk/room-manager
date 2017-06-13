@@ -9,7 +9,7 @@ export default class PeopleList extends Component {
         if (!userName.value.trim()) {
             return
         }
-        this.props.onAddUserToRoomClicked(userName.value.trim());
+        this.props.onAddUserToRoomClicked(userName.value.trim(), this.props.roomId);
         userName.value = '';
     }
 

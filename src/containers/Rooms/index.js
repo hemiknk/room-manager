@@ -25,7 +25,8 @@ class Rooms extends Component {
                     <PeopleList
                         onAddUserToRoomClicked={addUserToRoomClick}
                         title={title}
-                        roomExistInAfterFilter={roomExistInAfterFilter}>
+                        roomExistInAfterFilter={roomExistInAfterFilter}
+                        roomId={rooms.roomId}>
                         <ol>
                             {roomExistInAfterFilter ?
                                 userKeys.map(key => {
@@ -35,6 +36,7 @@ class Rooms extends Component {
                                             userId={user.id}
                                             firstName={user.firstName}
                                             lastName={user.lastName}
+                                            room={user.room}
                                             onNameChanged={onNameChanged}
                                             deleteUserFromRoom={() => deleteUserFromRoom(user.id, rooms.roomId)}/></li>
                                     }

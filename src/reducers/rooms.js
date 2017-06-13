@@ -24,7 +24,7 @@ const initialState = {
             id: 2,
             name: 'Вторая Просто кмната',
             description: 'Вторая Комната без окон',
-            userIds: [4,1,3]
+            userIds: [10]
         }
     },
     roomId: null,

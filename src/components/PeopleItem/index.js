@@ -34,9 +34,7 @@ export default class PeopleItem extends Component {
                             border: 0
                         }}
                     />
-                    {this.props.lastName} <span
-                        className='glyphicon glyphicon-remove-sign'
-                        onClick={this.props.deleteUserFromRoom}/>
+                    {this.props.lastName} ( {this.props.room} )<span className='glyphicon glyphicon-remove-sign' onClick={this.props.deleteUserFromRoom}/>
                 </p>
                 <hr/>
             </div>

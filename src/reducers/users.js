@@ -4,27 +4,32 @@ const initialState = {
         10: {
             id: 10,
             firstName: 'Вася',
-            lastName: 'Пупкин'
+            lastName: 'Пупкин',
+            room: 2
         },
         1: {
-            id: 1,
+            id: 2,
             firstName: 'Сергей',
-            lastName: 'Петров'
+            lastName: 'Петров',
+            room: 4
         },
         2: {
             id: 2,
             firstName: 'Роман',
-            lastName: 'Викторов'
+            lastName: 'Викторов',
+            room: 1
         },
         3: {
             id: 3,
             firstName: 'Лера',
-            lastName: 'Минкина'
+            lastName: 'Минкина',
+            room: 4
         },
         4: {
             id: 4,
             firstName: 'Женя',
-            lastName: 'Одинцова'
+            lastName: 'Одинцова',
+            room: 1
         }
     },
     fetching: false
