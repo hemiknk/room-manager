@@ -1,5 +1,5 @@
 import {
-    ADD_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, SORT_BY_ROOM_NAME
+    ADD_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, ON_USER_NAME_CHANGED, SORT_BY_ROOM_NAME
 } from '../constants/ActionTypes';
 
 let rootId = 7;
@@ -27,7 +27,7 @@ export function addRoom(name) {
     }
 }
 
-export function filterByRoomName(name){
+export function filterByRoomName(name) {
     return (dispatch) => {
         dispatch({
             type: FILTER_BY_ROOM_NAME,
@@ -38,7 +38,7 @@ export function filterByRoomName(name){
     }
 }
 
-export function onRoomClick(id){
+export function onRoomClick(id) {
     return (dispatch) => {
         dispatch({
             type: ON_ROOM_SELECTED,
@@ -49,8 +49,20 @@ export function onRoomClick(id){
     }
 }
 
+export function onNameChanged(userName, id) {
+    return (dispatch) => {
+        dispatch({
+            type: ON_USER_NAME_CHANGED,
+            payload: {
+                id,
+                firstName: userName
+            }
+        })
+    }
+}
 
-export function addUserToRoom(userName){
+
+export function addUserToRoom(userName) {
     return (dispatch) => {
         let id = rootId++;
         dispatch({

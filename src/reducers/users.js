@@ -1,4 +1,4 @@
-import {ON_ADD_USER_TO_ROOM} from '../constants/ActionTypes';
+import {ON_ADD_USER_TO_ROOM, ON_USER_NAME_CHANGED} from '../constants/ActionTypes';
 const initialState = {
     items: {
         10: {
@@ -35,6 +35,8 @@ export default function users(state = initialState, action) {
     switch (action.type) {
         case ON_ADD_USER_TO_ROOM:
             return { ...state, items: addUserToRoom(state, action.payload) };
+        case ON_USER_NAME_CHANGED:
+            return { ...state, items: changeUserName(state, action.payload)};
         default:
             return state;
     }
@@ -42,4 +44,10 @@ export default function users(state = initialState, action) {
 
 function addUserToRoom(state, payload) {
     return Object.assign({}, state.items, payload.user);
+}
+
+function changeUserName(state, payload) {
+    let user = state.items[payload.id];
+    user.firstName = payload.firstName;
+    return Object.assign({}, state.items, user);
 }
