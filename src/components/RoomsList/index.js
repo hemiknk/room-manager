@@ -9,7 +9,7 @@ export default class RoomsList extends Component {
         if (!roomField.value.trim()) {
             return
         }
-        this.props.onAddRoomClicked(roomField.value);
+        this.props.onAddRoomClicked(roomField.value.trim());
         roomField.value = '';
     }
 

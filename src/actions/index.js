@@ -1,6 +1,8 @@
-import {ADD_ROOM, FILTER_BY_ROOM_NAME, ON_ROOM_SELECTED, SORT_BY_ROOM_NAME} from '../constants/ActionTypes';
+import {
+    ADD_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, SORT_BY_ROOM_NAME
+} from '../constants/ActionTypes';
 
-let rootId = 5;
+let rootId = 7;
 export function addRoom(name) {
     return (dispatch) => {
         let id = rootId++;
@@ -42,6 +44,27 @@ export function onRoomClick(id){
             type: ON_ROOM_SELECTED,
             payload: {
                 roomId: id
+            }
+        })
+    }
+}
+
+
+export function addUserToRoom(userName){
+    return (dispatch) => {
+        let id = rootId++;
+        dispatch({
+
+            type: ON_ADD_USER_TO_ROOM,
+            payload: {
+                user: {
+                    [id]: {
+                        id: id,
+                        firstName: userName,
+                        lastName: '----'
+                    }
+                },
+                id: id
             }
         })
     }

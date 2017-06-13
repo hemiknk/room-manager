@@ -3,23 +3,29 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import RoomItem from '../../components/RoomItem'
 import RoomsList from '../../components/RoomsList'
-import {addRoom, filterByRoomName, onRoomClick} from '../../actions'
+import {addRoom, filterByRoomName, onRoomClick, addUserToRoom} from '../../actions'
 import PeopleList from '../../components/PeopleList'
 import PeopleItem from '../../components/PeopleItem';
 import {bindActionCreators} from 'redux'
 
 class Rooms extends Component {
     render() {
-        const {rooms, users, addRoom, filterByRoomName, onRoomClick} = this.props;
+        const {rooms, users, addRoom, filterByRoomName, onRoomClick, addUserToRoomClick} = this.props;
         let roomKeys = Object.keys(rooms.items);
         let userKeys = Object.keys(users.items);
+        let roomExistInAfterFilter = typeof rooms.items[rooms.roomId] === 'object';
+        let title = roomExistInAfterFilter ? rooms.items[rooms.roomId].name :'No room selected';
 
         return (
+
             <div className='row'>
                 <div className='col-md-4 peoples'>
-                    <PeopleList roomId={rooms.roomId}>
-                        <ul>
-                            {null !== rooms.roomId ?
+                    <PeopleList
+                        onAddUserToRoomClicked={addUserToRoomClick}
+                        title={title}
+                        roomExistInAfterFilter={roomExistInAfterFilter}>
+                        <ol>
+                            {roomExistInAfterFilter ?
                                 userKeys.map(key => {
                                         let user = users.items[key];
                                         return <li><PeopleItem
@@ -29,7 +35,7 @@ class Rooms extends Component {
                                     }
                                 ) : ''
                             }
-                        </ul>
+                        </ol>
                     </PeopleList>
                 </div>
                 <div className='col-md-4 rooms'>
@@ -78,7 +84,7 @@ function filterByName(items, value) {
     let result = [];
     arrayItems.map(function (object) {
         if (object.name.indexOf(value) !== -1) {
-            result.push(object);
+            result[object.id] = object;
         }
     });
     return result;
@@ -98,15 +104,14 @@ function getUsers(state) {
         return {};
     }
     let users = {};
-    Object.keys(state.users.items).map(function (key) {
-        let roomId = state.rooms.roomId;
-        let room = state.rooms.items[roomId];
-        if (-1 !== room.userIds.indexOf(Number(key))) {
-            users.key = state.users.items[key]
+    let roomId = state.rooms.roomId;
+    let userIds = state.rooms.items[roomId].userIds;
 
+    Object.keys(state.users.items).map(function (key) {
+        if (-1 !== userIds.indexOf(Number(key))) {
+            users[key] = state.users.items[key]
         }
     });
-    // debugger
     return users;
 }
 
@@ -119,7 +124,8 @@ function mapDispatchToProps(dispatch) {
     return {
         addRoom: bindActionCreators(addRoom, dispatch),
         filterByRoomName: bindActionCreators(filterByRoomName, dispatch),
-        onRoomClick: bindActionCreators(onRoomClick, dispatch)
+        onRoomClick: bindActionCreators(onRoomClick, dispatch),
+        addUserToRoomClick: bindActionCreators(addUserToRoom, dispatch)
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Rooms)

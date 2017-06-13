@@ -5,7 +5,7 @@ export default class PeopleItem extends Component {
     render() {
         return (
             <div>
-                <p>Имя: {this.props.firstName} Фимилия: {this.props.lastName}</p>
+                <p><span className='label label-success'>Имя:</span> {this.props.firstName} <span className='label label-primary'>Фимилия:</span> {this.props.lastName}</p>
                 <hr/>
             </div>
         )

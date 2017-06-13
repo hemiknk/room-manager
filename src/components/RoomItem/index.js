@@ -24,5 +24,6 @@ export default class RoomItem extends Component {
 RoomItem.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    countPeople: PropTypes.number.isRequired
+    countPeople: PropTypes.number.isRequired,
+    onRoomClick: PropTypes.func.isRequired
 }

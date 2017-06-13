@@ -6,3 +6,4 @@ export const ADD_ROOM = 'ADD_ROOM';
 export const FILTER_BY_ROOM_NAME = 'FILTER_BY_ROOM_NAME';
 export const SORT_BY_ROOM_NAME = 'SORT_BY_ROOM_NAME';
 export const ON_ROOM_SELECTED = 'ON_ROOM_SELECTED';
+export const ON_ADD_USER_TO_ROOM = 'ON_ADD_USER_TO_ROOM';
