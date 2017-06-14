@@ -75,7 +75,6 @@ Rooms.propTypes = {
     deleteUserFromRoom: PropTypes.func.isRequired
 };
 
-
 function filterRoomByName(roomState) {
     return ('' === roomState.filterRoom) ? roomState.items : filterByName(roomState.items, roomState.filterRoom);
 }

@@ -1,5 +1,6 @@
 import {
     ADD_ROOM, DELETE_USER_FROM_ROOM, FILTER_BY_ROOM_NAME, ON_ADD_USER_TO_ROOM, ON_ROOM_SELECTED, ON_USER_NAME_CHANGED,
+    SAVE_ROOM_DETAILS,
     SORT_BY_ROOM_NAME
 } from '../constants/ActionTypes';
 
@@ -68,6 +69,19 @@ export function deleteUserFromRoom(userId, roomId) {
             type: DELETE_USER_FROM_ROOM,
             payload: {
                 userId,
+                roomId
+            }
+        })
+    }
+}
+
+export function saveRoomDetails(roomName, roomDescription, roomId) {
+    return (dispatch) => {
+        dispatch({
+            type: SAVE_ROOM_DETAILS,
+            payload: {
+                roomName,
+                roomDescription,
                 roomId
             }
         })
